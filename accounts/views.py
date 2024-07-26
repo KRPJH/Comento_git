@@ -1,13 +1,14 @@
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from accounts.forms import SignupForm
 
 def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+    if request.method == "POST":
+        form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('accounts:login')  # 'accounts:login'을 사용하여 네임스페이스를 지정
+            user = form.save()
+            login(request, user)
+            return redirect('/')
     else:
-        form = UserCreationForm()
-
+        form = SignupForm()
     return render(request, 'accounts/signup.html', {'form': form})

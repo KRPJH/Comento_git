@@ -22,4 +22,3 @@ urlpatterns = [
     path('', views.mainpage),
     path('company/', views.company),
 ]
-
